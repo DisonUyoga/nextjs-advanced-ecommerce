@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
-
+import NavBar from './Navbar/Navbar'
+import Footer from './Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
             },
           }}
         />
+        <NavBar />
         <main className='max-w-7xl m-auto p-4 min-w-[300px]'>{children}</main>
+        <Footer />
       </body>
     </html>
   )
