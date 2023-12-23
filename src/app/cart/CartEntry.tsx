@@ -4,14 +4,21 @@ import { cartItemWithProducts } from '@/lib/db/cart'
 import { formatPrice } from '@/lib/format'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTransition } from 'react'
+import { toast } from 'react-hot-toast'
 
 interface CartEntryProps {
   cartItem: cartItemWithProducts
+  // eslint-disable-next-line no-unused-vars
+  setProductsQuantity: (productId: string, quantity: number) => Promise<void>
 }
 
 export default function CartEntry({
   cartItem: { product, quantity },
+  setProductsQuantity,
 }: CartEntryProps) {
+  const [isPending, startTransition] = useTransition()
+  // eslint-disable-next-line no-undef
   const quantityOptions: JSX.Element[] = []
 
   for (let i = 0; i <= 99; i++) {
@@ -44,6 +51,17 @@ export default function CartEntry({
             <select
               className='select select-bordered w-full max-w-[80px]'
               defaultValue={quantity}
+              onChange={(e) => {
+                const newQuantity = parseInt(e.currentTarget.value)
+                startTransition(async () => {
+                  await setProductsQuantity(product.id, newQuantity)
+                  toast.success(
+                    newQuantity > 0
+                      ? `${newQuantity} items added`
+                      : 'one item added'
+                  )
+                })
+              }}
             >
               {quantityOptions}
             </select>
@@ -51,6 +69,7 @@ export default function CartEntry({
           <div className='flex items-center'>
             Total: {formatPrice(product.price * quantity)}
           </div>
+          {isPending && <span className='loading loading-spinner loading-sm' />}
         </div>
         <div className='divider' />
       </div>
