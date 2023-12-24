@@ -2,7 +2,7 @@ import { prisma } from '@/lib/db/prisma'
 import FormSubmitButton from '@/components/FormSubmitButton'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '../api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/authOptions'
 export const metadata = {
   title: 'Comfort | add product',
 }
