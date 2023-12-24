@@ -14,8 +14,8 @@ function ShoppingCartBtn({ cart }: ShoppingCartButton) {
     <div className='dropdown dropdown-end'>
       <label tabIndex={0} className='btn-ghost btn-circle btn'>
         <div className='indicator'>
-          <FaShoppingCart className='h-[5px] w-[5px]' />
-          <span className='badge badge-sm indicator-item mb-2 text-sm'>
+          <FaShoppingCart className='h-5 w-5' />
+          <span className='badge badge-xs indicator-item mb-2 text-xs'>
             {cart?.size || 0}
           </span>
         </div>
@@ -23,7 +23,7 @@ function ShoppingCartBtn({ cart }: ShoppingCartButton) {
       <div className='card dropdown-content card-compact mt-3 w-52 bg-base-100 shadow z-30'>
         <div className='card-body'>
           <span className='text-sm font-bold'>{cart?.size || 0} items</span>
-          <span className='text-info'>
+          <span className='text-secondary'>
             subtotal:{formatPrice(cart?.subtotal || 0)}
           </span>
 

@@ -57,19 +57,22 @@ export default function CartEntry({
                   await setProductsQuantity(product.id, newQuantity)
                   toast.success(
                     newQuantity > 0
-                      ? `${newQuantity} items added`
-                      : 'one item added'
+                      ? `quantity changed to ${newQuantity}`
+                      : 'one item deleted'
                   )
                 })
               }}
             >
+              <option value={0}>0 (Remove)</option>
               {quantityOptions}
             </select>
           </div>
           <div className='flex items-center'>
             Total: {formatPrice(product.price * quantity)}
+            {isPending && (
+              <span className='loading loading-spinner loading-sm' />
+            )}
           </div>
-          {isPending && <span className='loading loading-spinner loading-sm' />}
         </div>
         <div className='divider' />
       </div>

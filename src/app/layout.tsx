@@ -4,6 +4,7 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import NavBar from './Navbar/Navbar'
 import Footer from './Footer'
+import SessionProvider from './SessionProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
+  // eslint-disable-next-line no-undef
   children: React.ReactNode
 }) {
   return (
@@ -28,9 +30,11 @@ export default function RootLayout({
             },
           }}
         />
-        <NavBar />
-        <main className='max-w-7xl m-auto p-4 min-w-[300px]'>{children}</main>
-        <Footer />
+        <SessionProvider>
+          <NavBar />
+          <main className='max-w-7xl m-auto p-4 min-w-[300px]'>{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   )

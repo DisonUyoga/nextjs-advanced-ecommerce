@@ -9,22 +9,42 @@ export async function setProductsQuantity(productId: string, quantity: number) {
 
   if (quantity === 0) {
     if (articleCart) {
-      await prisma.cartItem.delete({
-        where: { id: articleCart.id },
+      await prisma.cart.update({
+        where: { id: cart.id },
+        data: {
+          items: {
+            delete: { id: articleCart.id },
+          },
+        },
       })
     }
   } else {
     if (articleCart) {
-      await prisma.cartItem.update({
-        where: { id: articleCart.id },
-        data: { quantity },
+      await prisma.cart.update({
+        where: {
+          id: cart.id,
+        },
+        data: {
+          items: {
+            update: {
+              where: {
+                id: articleCart.id,
+              },
+              data: { quantity },
+            },
+          },
+        },
       })
     } else {
-      await prisma.cartItem.create({
+      await prisma.cart.update({
+        where: { id: cart.id },
         data: {
-          cartId: cart.id,
-          productId,
-          quantity,
+          items: {
+            create: {
+              productId,
+              quantity,
+            },
+          },
         },
       })
     }
