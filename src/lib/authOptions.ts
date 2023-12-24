@@ -4,8 +4,8 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import { NextAuthOptions } from 'next-auth'
 import { Adapter } from 'next-auth/adapters'
 import GoogleProvider from 'next-auth/providers/google'
-import { env } from '@/lib/env'
-import { mergeAnonymousCartIntoUserCart } from '@/lib/db/cart'
+import { env } from './env'
+import { mergeAnonymousCartIntoUserCart } from './db/cart'
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma as PrismaClient) as Adapter,
   providers: [
